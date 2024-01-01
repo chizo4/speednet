@@ -27,15 +27,21 @@ class Speednet:
     -------------------------
     '''
 
-    def __init__(self: 'Speednet') -> None:
+    def __init__(self: 'Speednet', test_opts: list) -> None:
         '''
         Initialize the Speednet class with all essential WiFi-related variables.
+
+            Parameters:
+            -------------------------
+            test_opts (list) : Testing options.
         '''
         try:
             self.wifi = Speedtest()
+            self.calc_complete = threading.Event()
             self.download = None
             self.upload = None
-            self.calc_complete = threading.Event()
+            self.download_opt = True if 'd' in test_opts else False
+            self.upload_opt = True if 'u' in test_opts else False
         except Exception as e:
             print(f'ERROR: Failed to measure the connection speed due to:\n{e}\n\n')
 
@@ -80,10 +86,12 @@ class Speednet:
 
     def calc_speed(self: 'Speednet') -> None:
         '''
-        Calculate the connection speed in Mbps.
+        Calculate the connection speed in Mbps (according to options).
         '''
-        self.download = self.bytes_to_mbps(self.wifi.download())
-        self.upload = self.bytes_to_mbps(self.wifi.upload())
+        if self.download_opt:
+            self.download = self.bytes_to_mbps(self.wifi.download())
+        if self.upload_opt:
+            self.upload = self.bytes_to_mbps(self.wifi.upload())
 
     def print_speed(self: 'Speednet') -> None:
         '''
@@ -91,10 +99,12 @@ class Speednet:
         '''
         print(''.join('-' for _ in range(30)))
         print('|     🛜 CONNECTION SPEED    |')
-        down = round(self.download, 1)
-        print(f'|   • Download: {str(down):<5} Mbps   |')
-        up = round(self.upload, 1)
-        print(f'|   • Upload:   {str(up):<5} Mbps   |')
+        if self.download_opt:
+            down = round(self.download, 1)
+            print(f'|   • Download: {str(down):<5} Mbps   |')
+        if self.upload_opt:
+            up = round(self.upload, 1)
+            print(f'|   • Upload:   {str(up):<5} Mbps   |')
         print(''.join('-' for _ in range(30)))
 
     def check_speed(self: 'Speednet') -> None:
