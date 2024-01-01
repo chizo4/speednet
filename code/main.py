@@ -7,13 +7,18 @@ SPEEDNET:
     Main module to run Speednet connection testing.
 
 USE:
-    python main.py (options)
+    python <PROGRNAME (options)
 
-EXAMPLE (full testing):
-    python main.py
+USE EXAMPLES:
+    (1) Full connection testing:
+        python main.py
+    (2) Only download testing:
+        python main.py -t download
+    (3) Only upload testing:
+        python main.py -t upload
 
 OPTIONS:
-    -h             : Print this help message.
+    -h        : Print this help message.
     -t OPTION : For download only: 'd', 'down', 'download' (ignore case).
                 For upload only: 'u', 'up', 'upload' (ignore case).
                 Default: no -t required; it implies full testing.
