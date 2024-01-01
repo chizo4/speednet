@@ -34,7 +34,7 @@ Follow these steps to get `speednet` up and running on your machine:
    ```
 
 4. **Define Aliases (optional but super useful):**
-   For ease of use, you can define aliases in your shell configuration file (e.g., `.bashrc`, `.zshrc`). Add the following lines to your configuration file, adjusting the paths as necessary:
+   You can define aliases in your shell configuration file (e.g., `.bashrc`, `.zshrc`). Add the following lines to your configuration file, adjusting the paths as necessary:
 
    ```shell
    alias speednet='python ~/{path}/speednet/code/main.py'
@@ -43,8 +43,8 @@ Follow these steps to get `speednet` up and running on your machine:
    ```
   
    > **Note**
-   - Replace `{path}` with the actual path on your machine.
-   - After adding these lines, refresh your shell configuration by running `source ~/.bashrc` or `source ~/.zshrc`.
+   Replace `{path}` with the actual path on your machine.
+   After adding these lines, refresh your shell configuration by running `source ~/.bashrc` or `source ~/.zshrc`.
 
 ## Options and Usage 🛠️
 
