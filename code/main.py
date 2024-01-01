@@ -4,7 +4,19 @@ FILE:
     code/main.py
 
 SPEEDNET:
-    Main module to run internet speed measurements (with options).
+    Main module to run Speednet connection testing.
+
+USE:
+    python main.py (options)
+
+EXAMPLE (full testing):
+    python main.py
+
+OPTIONS:
+    -h             : Print this help message.
+    -t OPTION : For download only: 'd', 'down', 'download' (ignore case).
+                For upload only: 'u', 'up', 'upload' (ignore case).
+                Default: no -t required; it implies full testing.
 
 AUTHOR:
     Filip J. Cierkosz
@@ -48,7 +60,9 @@ class CommandLine:
         '''
         Provide help documentation on how to correctly run the program with options.
         '''
-        print('Help')
+        progname = sys.argv[0].split('/')[-1]
+        help = __doc__.replace('<PROGNAME>', progname, 1)
+        print(help, file=sys.stderr)
 
     def handle_opts(self: 'CommandLine') -> None:
         '''
