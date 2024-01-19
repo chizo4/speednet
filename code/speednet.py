@@ -35,6 +35,7 @@ class Speednet:
             -------------------------
             test_opts (list) : Testing options.
         '''
+        self.wifi = None
         try:
             self.wifi = Speedtest()
             self.calc_complete = threading.Event()
@@ -111,16 +112,19 @@ class Speednet:
         '''
         Perform Wi-Fi speed measurements and display them in the terminal.
         '''
-        # Start a separate thread for the loading effect.
-        loading_thread = threading.Thread(
-            target=self.loading_effect, args=(self.calc_complete,)
-        )
-        loading_thread.start()
-        # Start and get the result from the heavy calculation.
-        self.calc_speed()
-        # Signal that the calculation is complete.
-        self.calc_complete.set()
-        # Wait for the loading effect to finish.
-        loading_thread.join()
-        # Finally, provide the results in the terminal.
-        self.print_speed()
+        if self.wifi:
+            # Start a separate thread for the loading effect.
+            loading_thread = threading.Thread(
+                target=self.loading_effect, args=(self.calc_complete,)
+            )
+            loading_thread.start()
+            # Start and get the result from the heavy calculation.
+            self.calc_speed()
+            # Signal that the calculation is complete.
+            self.calc_complete.set()
+            # Wait for the loading effect to finish.
+            loading_thread.join()
+            # Finally, provide the results in the terminal.
+            self.print_speed()
+        else:
+            print('ERROR: Failed to proceed - NO CONNECTION ESTABLISHED!')
